@@ -16,6 +16,8 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+]
 
 [project.urls]
 "Homepage" = "https://github.com/GhazanfarShahbaz/ObsidianWrapper"
