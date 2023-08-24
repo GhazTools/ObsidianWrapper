@@ -9,8 +9,10 @@ Edit Log:
 """
 
 from typing import Dict, Set, Tuple
+
 from os import listdir
 from os.path import isdir
+
 from re import findall
 
 from obsidian_wrapper.obsidian_file import ObsidianFile
@@ -20,13 +22,24 @@ class Obsidian:
     files_to_ignore: Set[str] = {".DS_STORE"}
 
     def __init__(self, path_to_vault: str):
-        self.__path_to_vault__ = path_to_vault
-        self.markdown_files, self.other_files = self.__extract_vault_information__()
+        self._path_to_vault = path_to_vault
+        self._markdown_files, self._other_files = self.__extract_vault_information__()
 
     # PUBLIC
     @property 
-    def get_path_to_vault(self) -> str:
-        return self.__path_to_vault__
+    def path_to_vault(self) -> str:
+        return self._path_to_vault
+    
+    @property
+    def markdown_files(self) -> Dict[str, str]:
+        return self._markdown_files
+    
+    @property
+    def other_files(self) -> Set[str]:
+        return self._other_files
+    
+    def reload_vault(self) -> None:
+        self._markdown_files, self._other_files = self.__extract_vault_information__()
 
     # PRIVATE
     def __extract_vault_information__(self) -> any:
@@ -80,7 +93,7 @@ class Obsidian:
 
         markdown_files: Dict[str, str] = {}
         other_files: Set[Tuple[str, str]] = set()
-        path: str = self.path_to_vault
+        path: str = self._path_to_vault
 
         get_all_files(markdown_files, other_files, path)
         
