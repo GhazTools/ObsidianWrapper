@@ -36,6 +36,7 @@ rich==13.5.2
 six==1.16.0
 tomlkit==0.12.1
 twine==4.0.2
+typing==3.7.4.3
 urllib3==2.0.4
 webencodings==0.5.1
 wrapt==1.15.0

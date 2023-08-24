@@ -17,6 +17,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+    "typing==3.7.4.3",
 ]
 
 [project.urls]
