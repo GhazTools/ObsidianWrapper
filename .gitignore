@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 .python-version
+.pypirc
 build/
 develop-eggs/
 dist/
@@ -152,6 +153,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Extra files
+test.py
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
