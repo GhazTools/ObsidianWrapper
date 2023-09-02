@@ -16,7 +16,7 @@ def fixture_header(request: int) -> str:
 def test_detect_valid_header(fixture_header):
     markdown_object = MarkdownObject(fixture_header[0], 0)
 
-    assert markdown_object.line == fixture_header[0]
+    assert markdown_object.line == [fixture_header[0]]
     assert markdown_object._index == 0
     assert markdown_object.attribute == f"h{fixture_header[1]}"
 
@@ -25,7 +25,7 @@ def test_detect_valid_header(fixture_header):
 def test_detect_invalid_header(fixture_header):
     markdown_object = MarkdownObject(fixture_header[0], 0)
 
-    assert markdown_object.line == fixture_header[0]
+    assert markdown_object.line == [fixture_header[0]]
     assert markdown_object._index == 0
     assert markdown_object.attribute == "text"
 
@@ -33,7 +33,7 @@ def test_detect_invalid_header(fixture_header):
 def test_detect_list():
     markdown_object = MarkdownObject("- This is a list", 0)
 
-    assert markdown_object.line == "- This is a list"
+    assert markdown_object.line == ["- This is a list"]
     assert markdown_object._index == 0
     assert markdown_object.attribute == "list"
 
@@ -41,7 +41,7 @@ def test_detect_list():
 def test_detect_invalid_list():
     markdown_object = MarkdownObject("-This is a list", 0)
 
-    assert markdown_object.line == "-This is a list"
+    assert markdown_object.line == ["-This is a list"]
     assert markdown_object._index == 0
     assert markdown_object.attribute == "text"
 
@@ -49,7 +49,7 @@ def test_detect_invalid_list():
 def test_detect_unchecked_checkbox():
     markdown_object = MarkdownObject("- [] This is a checkbox", 0)
 
-    assert markdown_object.line == "- [] This is a checkbox"
+    assert markdown_object.line == ["- [] This is a checkbox"]
     assert markdown_object._index == 0
     assert markdown_object.attribute == "checkBox-unchecked"
 
@@ -57,6 +57,6 @@ def test_detect_unchecked_checkbox():
 def test_detect_checked_checkbox():
     markdown_object = MarkdownObject("- [x] This is a checkbox", 0)
 
-    assert markdown_object.line == "- [x] This is a checkbox"
+    assert markdown_object.line == ["- [x] This is a checkbox"]
     assert markdown_object._index == 0
     assert markdown_object.attribute == "checkBox-checked"

@@ -6,7 +6,7 @@ from re import findall
 
 class MarkdownObject:
     def __init__(self, line: str, index: int):
-        self._line: str = line
+        self._lines: List[str] = [line.rstrip()]
         self._index: int = index
         self._attribute: str = self.__extract_attribute__()
         
@@ -17,8 +17,8 @@ class MarkdownObject:
         # self.code_block_closed: bool = False 
         
     @property 
-    def line(self) -> str:
-        return self._line
+    def line(self) -> List[str]:
+        return self._lines
     
     @property 
     def index(self) -> int:
@@ -28,12 +28,12 @@ class MarkdownObject:
     def attribute(self) -> str:
         return self._attribute
     
-    # def add_to_line(self, line: str) -> bool:
-    #     self._line += line
-    #     return True 
+    def add_to_line(self, line: str) -> bool:
+        self._lines.append(line)
+        return True 
     
     def __extract_attribute__(self) -> str:
-        line: str = copy(self._line)
+        line: str = copy(self._lines[-1])
         
     #     # check for headers
         if line.startswith("#"):

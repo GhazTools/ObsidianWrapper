@@ -12,7 +12,7 @@ from typing import Dict, Set, List, Tuple
 
 from re import findall
 
-from obsidian_wrapper.markdown_objects import MarkdownObject
+from obsidian_wrapper.markdown_object import MarkdownObject
 
 class ObsidianMarkdownFile:
     def __init__(self, file_name: str, file_path: str):
@@ -53,10 +53,21 @@ class ObsidianMarkdownFile:
     
     def get_file_contents(self, as_dict=False) -> List[MarkdownObject] | List[dict]:
         file_contents: List[MarkdownObject] = []
+        previous_attribute: str = None 
 
         with open(self.file_path, "r", encoding="UTF-8") as md_file:
             for line_index, line in enumerate(md_file):
                 current_line_markdown = MarkdownObject(line, line_index)
+                
+                if previous_attribute == current_line_markdown.attribute:
+                    if not as_dict:
+                        file_contents[-1].add_to_line(line) 
+                    else:
+                        file_contents[-1]["_lines"].append(line)
+                    continue 
+                                
+                previous_attribute = current_line_markdown.attribute
+                
                 if as_dict:
                     file_contents.append(vars(current_line_markdown))
                 else:
