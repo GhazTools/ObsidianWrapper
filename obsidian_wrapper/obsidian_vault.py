@@ -34,7 +34,7 @@ class ObsidianVault:
         return self._path_to_vault
     
     @property
-    def markdown_files(self) -> Dict[str, str]:
+    def markdown_files(self) -> Dict[str, ObsidianMarkdownFile]:
         return self._markdown_files
     
     @property
