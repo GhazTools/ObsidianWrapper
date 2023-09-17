@@ -29,15 +29,14 @@ class ObsidianMarkdownFile:
         self._links_and_aliases = file_information["links_and_aliases"]
         self._total_connections = file_information["total_connections"]
         self._unique_connections = file_information["unique_connections"]
-        
+
         # TODO: Add properties for date created, date modified, date accessed, size
         file_stat: any = stat(file_path)
         self._date_created = file_stat.st_ctime
         self._date_modified = file_stat.st_mtime
         self._date_accessed = file_stat.st_atime
         self._size = file_stat.st_size / 1_000_000
-        
-        
+
         # TODO: last updated
         # TODO: date created
 
@@ -83,34 +82,56 @@ class ObsidianMarkdownFile:
 
         with open(self.file_path, "r", encoding="UTF-8") as md_file:
             for line_index, line in enumerate(md_file):
-                current_line_markdown = MarkdownObject(line, line_index, previous_attribute)
-                
-                if previous_attribute == current_line_markdown.attribute and not previous_attribute in {"code-block"," code-block-line"} :
+                current_line_markdown = MarkdownObject(
+                    line, line_index, previous_attribute
+                )
+
+                if (
+                    previous_attribute == current_line_markdown.attribute
+                    and not previous_attribute in {"code-block", " code-block-line"}
+                ):
                     if not as_dict:
                         file_contents[-1].add_to_line(line)
-                        file_contents[-1].add_to_information(current_line_markdown.information[0])
-                        file_contents[-1].add_to_raw_lines(current_line_markdown.raw_line[0])
-
+                        file_contents[-1].add_to_information(
+                            current_line_markdown.information[0]
+                        )
+                        file_contents[-1].add_to_raw_lines(
+                            current_line_markdown.raw_line[0]
+                        )
 
                     else:
                         file_contents[-1]["_lines"].append(line)
-                        file_contents[-1]["_information"].append(current_line_markdown.information[0])
-                        file_contents[-1]["_raw_line"].append(current_line_markdown.raw_line[0])
+                        file_contents[-1]["_information"].append(
+                            current_line_markdown.information[0]
+                        )
+                        file_contents[-1]["_raw_line"].append(
+                            current_line_markdown.raw_line[0]
+                        )
 
                     continue
-                
+
                 # TODO: Find a  way to write this.
-                if previous_attribute == "code-block" or previous_attribute == "code-block-line":
+                if (
+                    previous_attribute == "code-block"
+                    or previous_attribute == "code-block-line"
+                ):
                     if not as_dict:
                         file_contents[-1].add_to_line(line)
-                        file_contents[-1].add_to_information(current_line_markdown.information[0])
-                        file_contents[-1].add_to_raw_lines(current_line_markdown.raw_line[0])
+                        file_contents[-1].add_to_information(
+                            current_line_markdown.information[0]
+                        )
+                        file_contents[-1].add_to_raw_lines(
+                            current_line_markdown.raw_line[0]
+                        )
 
                     else:
                         file_contents[-1]["_lines"].append(line)
-                        file_contents[-1]["_information"].append(current_line_markdown.information[0])
-                        file_contents[-1]["_raw_line"].append(current_line_markdown.raw_line[0])
-
+                        file_contents[-1]["_information"].append(
+                            current_line_markdown.information[0]
+                        )
+                        file_contents[-1]["_raw_line"].append(
+                            current_line_markdown.raw_line[0]
+                        )
 
                     previous_attribute = current_line_markdown.attribute
                     continue

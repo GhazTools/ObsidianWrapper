@@ -74,17 +74,17 @@ class ObsidianVault:
 
     def reload_vault(self) -> None:
         self._markdown_files, self._other_files = self.__extract_vault_information__()
-    
+
     # NOTE: this function assumes folder_path does not contain the vault path
     def get_folder(self, folder_path: str) -> Tuple[str, VaultTree, int]:
-        if(folder_path.startswith("/")):
-            folder_path  = folder_path[1:]            
-        
+        if folder_path.startswith("/"):
+            folder_path = folder_path[1:]
+
         vault_path: str = join(self._path_to_vault, folder_path)
-        
-        if (vault_path.endswith("/")):
+
+        if vault_path.endswith("/"):
             vault_path = vault_path[:-1]
-            
+
         if not vault_path in self._folders:
             return None
 
@@ -185,7 +185,9 @@ class ObsidianVault:
 
                     markdown_files[markdown_file_name] = markdown_file
                     # vault_tree[markdown_file_name] = markdown_file
-                    vault_tree[markdown_file_name] = current_path # For debugging purposes
+                    vault_tree[
+                        markdown_file_name
+                    ] = current_path  # For debugging purposes
 
                     folder_size += (
                         file_stats.st_size / 1_000_000
