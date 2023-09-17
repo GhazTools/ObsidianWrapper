@@ -76,7 +76,7 @@ class MarkdownObject:
             for index, character in enumerate(line):
                 if character != "#":
                     if index <= 6:
-                        return f"h", line[index+1:], index
+                        return f"h", line[index+1:], str(index)
                     else:
                         return "text", line, ""
         
@@ -116,6 +116,6 @@ class MarkdownObject:
             if stripped_line[0:3] == "[x]":
                 return "checkBox", stripped_line, "checked" # if number_of_tabs == 0 else f"checkbox-checked-nested-{number_of_tabs}"
             
-            return "list", stripped_line, number_of_tabs # if number_of_tabs == 0 else f"list-nested-{number_of_tabs}"
+            return "list", stripped_line, str(number_of_tabs) # if number_of_tabs == 0 else f"list-nested-{number_of_tabs}"
 
         return "text", line, ""
