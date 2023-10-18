@@ -68,7 +68,7 @@ class ObsidianVault:
     def size(self) -> int:
         return self._vault_size
 
-    # PROPERTIES END HERE
+    # PROPERTIES END HERE   
 
     # PUBLIC FUNCTIONS START HERE
 
