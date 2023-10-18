@@ -11,7 +11,7 @@ Edit Log:
 
 # STANDARD LIBRARY IMPORTS
 from copy import copy
-from typing import List, Final, Tuple
+from typing import Final, List, Tuple, final
 
 # THIRD PARTY LIBRARY IMPORTS
 ...
@@ -22,7 +22,7 @@ from typing import List, Final, Tuple
 # First Element = Markdown Type, Second Element = Markdown Content, Third Element = Extra Attributes
 MarkdownTypeCheck: type = Tuple[str, str, str]
 
-# @Final
+@final
 class MarkdownObject:
     """
     __FILL OUT HERE_
