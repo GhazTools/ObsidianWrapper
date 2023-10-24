@@ -16,8 +16,7 @@ from typing import TypedDict, List
 ...
 
 # LOCAL LIBRARY IMPORTS
-from obsidian_wrapper_plus.markdown_line import MarkdownLine
-
+...
 
 # https://stackoverflow.com/questions/48254562/python-equivalent-of-typescript-interface#:~:text=A%20TypeScript%20interface%20describes%20a,is%20described%20by%20a%20TypedDict.
 class MarkdownElement(TypedDict):
@@ -27,3 +26,4 @@ class MarkdownElement(TypedDict):
 
     type: List[str]
     content: str
+
