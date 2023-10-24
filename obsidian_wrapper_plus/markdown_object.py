@@ -17,7 +17,7 @@ from typing import Final, List, Tuple, final
 ...
 
 # LOCAL LIBRARY IMPORTS
-# from obsidian_wrapper_plus.markdown_line import MarkdownLine
+from obsidian_wrapper_plus.markdown_line import MarkdownLine
 
 # First Element = Markdown Type, Second Element = Markdown Content, Third Element = Extra Attributes
 MarkdownTypeCheck: type = Tuple[str, str, str]
@@ -46,20 +46,18 @@ class MarkdownObject:
     """
 
     def __init__(self, line: str, index: int, previous_attribute: "MarkdownObject"):
-        self._lines: List[str] = [line.rstrip()]
-        self._raw_line: List[str] = []
-
-        self._information: List[str] = []
         self._index: int = index
+        self._line: str= line.rstrip()
 
         attribute_info = self.__extract_attribute__(
             previous_attribute=previous_attribute
         )
 
-        self._attribute = attribute_info[0]
-        self._raw_line.append(attribute_info[1])
-
-        self._information.append(attribute_info[2])
+        self._attribute: str = attribute_info[0]
+        
+        self._raw_line: str = attribute_info[1]
+        self._information: str = attribute_info[2]
+        self._markdown_line_attributes: MarkdownLine = MarkdownLine(self._raw_line)
 
         # TODO: Process each word so we can check for tags, code blocks, quotes, etc.
         # TODO: Detection for previous line ex previous line is a list, and next line is a nested list
@@ -67,35 +65,49 @@ class MarkdownObject:
     # PROPERTIES START HERE
 
     @property
-    def line(self) -> List[str]:
-        return self._lines
-
-    @property
-    def raw_line(self) -> List[str]:
-        return self._raw_line
-
-    @property
     def index(self) -> int:
         return self._index
+    
+    @property
+    def line(self) -> str:
+        return self._line
+
+    @property
+    def raw_line(self) -> str:
+        return self._raw_line
 
     @property
     def attribute(self) -> str:
         return self._attribute
 
     @property
-    def information(self) -> List[str]:
+    def information(self) -> str:
         return self._information
 
     # PROPERTIES END HERE
-
+    
     # PUBLIC METHODS START HERE
     ...
     # PUBLIC METHODS END HERE
+    
+    # OVERRIDE METHOD STARTS HERE
+    
+    def __iter__(self):
+        return iter([
+            ("index", self.index),
+            ("line", self.line),
+            ("raw_line", self.raw_line),
+            ("attribute", self.attribute),
+            ("information", self.information),
+            ("markdown_line_attributes", dict(self._markdown_line_attributes))
+        ])
+    
+    # OVERRIDE METHOD ENDS HERE
 
     # PRIVATE METHODS START HERE
 
     def __extract_attribute__(self, previous_attribute: str) -> Tuple[str, str, str]:
-        line: Final[str] = copy(self._lines[-1]).rstrip()
+        line: Final[str] = copy(self._line).rstrip()
         
         # CHECKS START HERE 
 
@@ -173,7 +185,7 @@ class MarkdownObject:
         def check_passed(check_result: MarkdownTypeCheck) -> bool:
             return check_result[0] != ""
 
-        line: str = copy(self._lines[-1]).rstrip()
+        line = copy(self.line).rstrip()
         
         checks: Final[List[MarkdownTypeCheck]] = [
             code_block_check(),
@@ -189,3 +201,8 @@ class MarkdownObject:
         return ("text", line, "")
 
     # PRIVATE METHODS END HERE
+    
+    
+
+# https://colourcontrast.cc/ff6b6b/232020
+
