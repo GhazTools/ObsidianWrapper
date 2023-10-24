@@ -74,7 +74,7 @@ class MarkdownLine:
     Represents a line of Markdown text.
 
     Args:
-        line (str): The raw line of Markdown text.
+        raw_line (str): The raw line of Markdown text.
 
     Attributes:
         raw_line (str): The raw line of Markdown text.
@@ -89,7 +89,7 @@ class MarkdownLine:
 
     """
 
-    def __init__(self, line: str) -> None:
+    def __init__(self, raw_line: str) -> None:
         """
         Initializes a MarkdownLine object.
 
@@ -98,7 +98,7 @@ class MarkdownLine:
 
         """
 
-        self.__raw_line: Final[str] = line
+        self.__raw_line: Final[str] = raw_line
 
         self.__markdown_elements: Final[
             MarkdownElements
@@ -130,6 +130,15 @@ class MarkdownLine:
         return self.__markdown_elements
 
     # PROPERTIES END HERE
+    
+    # OVERRIDE METHOD STARTS HERE
+    
+    def __iter__(self):
+        return iter([
+            ("markdown_elements", self.__markdown_elements)
+        ])
+    
+    # OVERRIDE METHOD ENDS HERE
 
     # PUBLIC METHODS START HERE
     # PUBLIC METHODS END HERE
