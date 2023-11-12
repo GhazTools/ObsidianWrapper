@@ -20,7 +20,7 @@ from typing import Dict, Final, List, Set, final
 ...
 
 # LOCAL LIBRARY IMPORTS
-from obsidian_wrapper_plus.markdown_element import MarkdownElement
+from obsidian_wrapper_plus.typed_dicts.markdown_element import MarkdownElement
 
 
 # https://www.markdownguide.org/cheat-sheet/
